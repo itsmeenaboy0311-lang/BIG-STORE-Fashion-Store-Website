@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "BIG STORE Fashion Store"
+description = "A polished, mobile-first storefront website for BIG STORE in Jodhpur, helping local shoppers discover affordable branded, traditional, and everyday fashion before visiting the store."
+version = "1.0.0"
+id = "artifacts/big-store"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24780
+
+[services.development]
+run = "pnpm --filter @workspace/big-store run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/big-store", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/big-store/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24780"
+BASE_PATH = "/"
